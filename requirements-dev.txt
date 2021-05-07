@@ -1,0 +1,6 @@
+autoflake
+pylint
+pylint-django
+yapf
+isort
+twine
