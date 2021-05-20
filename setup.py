@@ -3,7 +3,7 @@ from pathlib import Path
 
 from setuptools import setup
 
-version = '0.0.1.dev20210507001'
+version = '0.0.1a1'
 
 description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'README.md')).read_text(encoding='utf-8').strip()

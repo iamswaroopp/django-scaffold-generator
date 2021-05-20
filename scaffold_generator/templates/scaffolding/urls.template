@@ -1,0 +1,13 @@
+
+{% for class in config.URL_EXTRA_IMPORT_CLASSES %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endfor %}
+
+from .views import {{ model_name }}ListView, {{ model_name }}DetailView, {{ model_name }}CreateView, {{ model_name }}UpdateView, {{ model_name }}DeleteView
+urlpatterns += [
+    path('{{ model_code }}/', {{ model_name }}ListView.as_view(), name='{{ model_code }}-list'),
+    path('{{ model_code }}/<int:pk>/', {{ model_name }}DetailView.as_view(), name='{{ model_code }}-detail'),
+    path('{{ model_code }}/{{ config.CREATE_URL_PATH }}/', {{ model_name }}CreateView.as_view(), name='{{ model_code }}-create'),
+    path('{{ model_code }}/<int:pk>/{{ config.UPDATE_URL_PATH }}/', {{ model_name }}UpdateView.as_view(), name='{{ model_code }}-update'),
+    path('{{ model_code }}/<int:pk>/{{ config.DELETE_URL_PATH }}/', {{ model_name }}DeleteView.as_view(), name='{{ model_code }}-delete'),
+]

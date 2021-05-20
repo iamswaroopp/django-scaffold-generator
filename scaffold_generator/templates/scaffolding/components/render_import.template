@@ -1,0 +1,1 @@
+{% load scaffold_generator_helper %}{% with import_class_items=class|to_import %}from {{ import_class_items.0 }} import {{ import_class_items.1 }}{% endwith %}

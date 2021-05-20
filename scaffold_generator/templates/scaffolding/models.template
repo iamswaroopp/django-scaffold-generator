@@ -1,0 +1,13 @@
+{% load scaffold_generator_helper %}
+{% autoescape off %}
+{% for class in config.MODEL_EXTRA_IMPORT_CLASSES %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endfor %}
+{% for class in config.MODEL_PARENT_CLASSES %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endfor %}
+
+class {{ model_name }}({{ config.MODEL_PARENT_CLASSES|to_classnames|join:", " }}):
+    {% for model_field in model_fields %}{{ model_field.name }} = {{ model_field.class_name }}({% if model_field.pos_args %} {{ model_field.pos_args|join:", " }} {% if model_field.kw_args %} ,{% endif %}{% endif %}{% if model_field.kw_args %}{{ model_field.kw_args|to_keyvalues|join:", " }}{% endif %})
+    {% endfor %}
+{% endautoescape %}

@@ -151,3 +151,5 @@ userfiles/
 *.iml
 *.DS_Store
 *.ipynb
+test_project/
+test_app/
