@@ -11,7 +11,7 @@ DEFAULT_SETTINGS = {
     ],
     'MODEL_PARENT_CLASSES': ['django.db.models.Model'],
     'FORM_EXTRA_IMPORT_CLASSES': ['django.forms'],
-    'FORM_PARENT_CLASSES': ['django.forms.ModelAdmin'],
+    'FORM_PARENT_CLASSES': ['django.forms.ModelForm'],
     'VIEW_EXTRA_IMPORT_CLASSES': [],
     'VIEW_PERMISSION_CLASSES': [
         'django.contrib.auth.mixins.PermissionRequiredMixin',

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'scaffold_generator',
+    'test_app',
 ]
 
 MIDDLEWARE = [

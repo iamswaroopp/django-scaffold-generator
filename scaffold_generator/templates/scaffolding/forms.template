@@ -6,7 +6,7 @@
 {% include 'scaffolding/components/render_import.template' %}
 {% endfor %}
 from .models import {{ model_name }}
-class {{ model_name }}Admin({{ config.FORM_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}Form({{ config.FORM_PARENT_CLASSES|to_classnames|join:", " }}):
     class Meta:
         model = {{ model_name }}
         fields = [{% for model_field in model_fields %}'{{ model_field.name }}' {% if not forloop.last %},{% endif %} {% endfor %}]
