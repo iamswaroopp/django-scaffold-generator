@@ -1,3 +1,5 @@
+from django.shortcuts import render
+
 # Create your views here.
 
 
@@ -25,6 +27,8 @@ class BlogDetailView(BlogMixin, PermissionRequiredMixin, DetailView):
 
 
 from .forms import BlogForm
+from django.urls import reverse
+from django.urls import reverse_lazy
 
 class BlogFormMixin(BlogMixin):
     form_class = BlogForm
@@ -38,7 +42,9 @@ from django.views.generic.edit import CreateView
 class BlogCreateView(BlogFormMixin, PermissionRequiredMixin, CreateView):
     permission_required = [ 'test_app.add_blog' ]
     template_name_suffix = '_create_form'
-    success_url = 'test_app:blog-detail'
+
+    def get_success_url(self):
+        return reverse('test_app:blog-detail', kwargs={'pk':self.object.pk})
 
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -50,7 +56,9 @@ from django.views.generic.edit import UpdateView
 class BlogUpdateView(BlogFormMixin, PermissionRequiredMixin, UpdateView):
     permission_required = [ 'test_app.change_blog' ]
     template_name_suffix = '_update_form'
-    success_url = 'test_app:blog-detail'
+
+    def get_success_url(self):
+        return reverse('test_app:blog-detail', kwargs={'pk':self.object.pk})
 
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -61,7 +69,7 @@ from django.views.generic.edit import DeleteView
 
 class BlogDeleteView(BlogFormMixin, PermissionRequiredMixin, DeleteView):
     permission_required = [ 'test_app.delete_blog' ]
-    success_url = 'test_app:blog-list'
+    success_url = reverse_lazy('test_app:blog-list')
 
 
 

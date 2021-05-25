@@ -10,13 +10,13 @@ formatter() {
   echo "Running formatter in Directory $exec_dir"
 
   # Autoflake
-  autoflake --expand-star-imports --remove-all-unused-imports --remove-duplicate-keys --remove-unused-variables --recursive --in-place $exec_dir
+  autoflake --expand-star-imports --remove-all-unused-imports --remove-duplicate-keys --remove-unused-variables --ignore-init-module-imports --recursive --in-place $exec_dir
 
   #Isort
-  isort --atomic --force-single-line-imports --force-sort-within-sections --order-by-type --apply --recursive --quiet --jobs 4 --line-width 119 $exec_dir
+  isort --atomic --float-to-top --force-single-line-imports --force-sort-within-sections  --order-by-type --apply --recursive --quiet --jobs 4 --line-width  119 $exec_dir
 
   #Yapf
-  yapf --parallel --recursive --in-place $exec_dir --style ./.style.yapf
+  yapf --parallel --recursive --in-place  $exec_dir --style ./.style.yapf
 }
 
 clean() {

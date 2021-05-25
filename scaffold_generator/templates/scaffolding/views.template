@@ -26,6 +26,8 @@ class {{ model_name }}DetailView({{ model_name }}Mixin, {{ config.VIEW_PERMISSIO
 
 
 from .forms import {{ model_name }}Form
+from django.urls import reverse
+from django.urls import reverse_lazy
 
 class {{ model_name }}FormMixin({{ model_name }}Mixin):
     form_class = {{ model_name }}Form
@@ -39,7 +41,9 @@ class {{ model_name }}FormMixin({{ model_name }}Mixin):
 class {{ model_name }}CreateView({{ model_name }}FormMixin, {{ config.ADD_PERMISSION_CLASSES|add:config.CREATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.ADD_PERMISSION_CODES %}permission_required = [{% for permission_code in config.ADD_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
     template_name_suffix = '_create_form'
-    success_url = '{{ app_label }}:{{ model_code }}-detail'
+
+    def get_success_url(self):
+        return reverse('{{ app_label }}:{{ model_code }}-detail', kwargs={'pk':self.object.pk})
 
 
 {% for class in config.CHANGE_PERMISSION_CLASSES %}{% include 'scaffolding/components/render_import.template' %}
@@ -51,7 +55,9 @@ class {{ model_name }}CreateView({{ model_name }}FormMixin, {{ config.ADD_PERMIS
 class {{ model_name }}UpdateView({{ model_name }}FormMixin, {{ config.CHANGE_PERMISSION_CLASSES|add:config.UPDATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.CHANGE_PERMISSION_CLASSES %}permission_required = [{% for permission_code in config.CHANGE_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
     template_name_suffix = '_update_form'
-    success_url = '{{ app_label }}:{{ model_code }}-detail'
+
+    def get_success_url(self):
+        return reverse('{{ app_label }}:{{ model_code }}-detail', kwargs={'pk':self.object.pk})
 
 
 {% for class in config.DELETE_PERMISSION_CLASSES %}{% include 'scaffolding/components/render_import.template' %}
@@ -62,7 +68,7 @@ class {{ model_name }}UpdateView({{ model_name }}FormMixin, {{ config.CHANGE_PER
 
 class {{ model_name }}DeleteView({{ model_name }}FormMixin, {{ config.DELETE_PERMISSION_CLASSES|add:config.DELETE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.DELETE_PERMISSION_CLASSES %}permission_required = [{% for permission_code in config.DELETE_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
-    success_url = '{{ app_label }}:{{ model_code }}-list'
+    success_url = reverse_lazy('{{ app_label }}:{{ model_code }}-list')
 
 
 {% endautoescape %}

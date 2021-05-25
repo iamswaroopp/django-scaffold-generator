@@ -51,11 +51,20 @@ DEFAULT_SETTINGS = {
 }
 
 DEFAULT_FIELDS = {
-    'ForeignKey': {
-        'class_name': 'models.ForeignKey',
-        'default_kwargs': {
-            'on_delete': 'models.CASCADE',
-        }
+    'AutoField': {
+        'class_name': 'models.AutoField',
+    },
+    'BigAutoField': {
+        'class_name': 'models.BigAutoField',
+    },
+    'BigIntegerField': {
+        'class_name': 'models.BigIntegerField',
+    },
+    'BinaryField': {
+        'class_name': 'models.BinaryField',
+    },
+    'BooleanField': {
+        'class_name': 'models.BooleanField',
     },
     'CharField': {
         'class_name': 'models.CharField',
@@ -64,7 +73,102 @@ DEFAULT_FIELDS = {
         },
         'nullable': False,
     },
+    'CommaSeparatedIntegerField': {
+        'class_name': 'models.CommaSeparatedIntegerField',
+        'nullable': False,
+    },
+    'DateField': {
+        'class_name': 'models.DateField',
+    },
+    'DateTimeField': {
+        'class_name': 'models.DateTimeField',
+    },
+    'DecimalField': {
+        'class_name': 'models.DecimalField',
+    },
+    'DurationField': {
+        'class_name': 'models.DurationField',
+    },
+    'EmailField': {
+        'class_name': 'models.EmailField',
+        'nullable': False,
+    },
+    'FileField': {
+        'class_name': 'models.FileField',
+        'nullable': False,
+    },
+    'FilePathField': {
+        'class_name': 'models.FilePathField',
+    },
+    'FloatField': {
+        'class_name': 'models.FloatField',
+    },
+    'ForeignKey': {
+        'class_name': 'models.ForeignKey',
+        'default_kwargs': {
+            'on_delete': 'models.CASCADE',
+        },
+    },
+    'GenericIPAddressField': {
+        'class_name': 'models.GenericIPAddressField',
+    },
+    'IPAddressField': {
+        'class_name': 'models.IPAddressField',
+    },
+    'ImageField': {
+        'class_name': 'models.ImageField',
+        'nullable': False,
+    },
+    'IntegerField': {
+        'class_name': 'models.IntegerField',
+    },
+    'JSONField': {
+        'class_name': 'models.JSONField',
+    },
+    'ManyToManyField': {
+        'class_name': 'models.ManyToManyField',
+        'nullable': False,
+    },
+    'NullBooleanField': {
+        'class_name': 'models.NullBooleanField',
+    },
+    'OneToOneField': {
+        'class_name': 'models.OneToOneField',
+        'default_kwargs': {
+            'on_delete': 'models.CASCADE',
+        },
+    },
+    'PositiveBigIntegerField': {
+        'class_name': 'models.PositiveBigIntegerField',
+    },
+    'PositiveIntegerField': {
+        'class_name': 'models.PositiveIntegerField',
+    },
+    'PositiveSmallIntegerField': {
+        'class_name': 'models.PositiveSmallIntegerField',
+    },
+    'SlugField': {
+        'class_name': 'models.SlugField',
+        'nullable': False,
+    },
+    'SmallAutoField': {
+        'class_name': 'models.SmallAutoField',
+    },
+    'SmallIntegerField': {
+        'class_name': 'models.SmallIntegerField',
+    },
     'TextField': {
-        'class_name': 'models.TextField'
-    }
+        'class_name': 'models.TextField',
+        'nullable': False,
+    },
+    'TimeField': {
+        'class_name': 'models.TimeField',
+    },
+    'URLField': {
+        'class_name': 'models.URLField',
+        'nullable': False,
+    },
+    'UUIDField': {
+        'class_name': 'models.UUIDField',
+    },
 }
