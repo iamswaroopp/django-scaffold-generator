@@ -16,7 +16,7 @@ class ScaffoldGeneratorConfig(dict):
             userkwargs = {}
         settings_keys = set(DEFAULT_SETTINGS.keys())
         user_settings = {**getattr(settings, 'SCAFFOLD_GENERATOR_SETTINGS', {}), **userkwargs}
-        user_settings = {k: v for k, v in user_settings if k in settings_keys}
+        user_settings = {k: v for k, v in user_settings.items() if k in settings_keys}
         config_settings = {
             **DEFAULT_SETTINGS,
             **user_settings,

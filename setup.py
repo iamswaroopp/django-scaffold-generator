@@ -2,15 +2,18 @@ import os
 from pathlib import Path
 
 from setuptools import setup
+from setuptools import setup, find_packages
 
-version = '0.0.1a3'
+version = '0.0.1a5'
 
 description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'README.md')).read_text(encoding='utf-8').strip()
 
 setup(
     name='django-scaffold-generator',
-    packages=['scaffold_generator'],
+    packages=find_packages('.', include=['scaffold_generator','scaffold_generator.*']),
+    package_data={'scaffold_generator': ['templates/scaffolding/*.template','templates/scaffolding/components/*.template']},
+
     version=version,
     license='mit',
     license_files=('LICENSE.txt',),
@@ -46,4 +49,5 @@ setup(
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/iamswaroopp/django-scaffold-generator/issues',
     },
+    include_package_data=True,
 )
