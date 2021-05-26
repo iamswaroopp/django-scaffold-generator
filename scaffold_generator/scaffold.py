@@ -43,7 +43,7 @@ class ScaffoldGenerator:
         config = ScaffoldGeneratorConfig()
         self.config = config
         self.app_label = app_label
-        self.model_name = re.sub(r'\W+', '', model_name.title())
+        self.model_name = re.sub(r'\W+', '', model_name[0].upper() + model_name[1:])
         self.model_fields = clean_model_fields(model_fields, config)
 
     def get_context(self):
