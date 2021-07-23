@@ -41,7 +41,6 @@ from django.views.generic.edit import CreateView
 
 class BlogCreateView(BlogFormMixin, PermissionRequiredMixin, CreateView):
     permission_required = [ 'test_app.add_blog' ]
-    template_name_suffix = '_create_form'
 
     def get_success_url(self):
         return reverse('test_app:blog-detail', kwargs={'pk':self.object.pk})
@@ -55,7 +54,6 @@ from django.views.generic.edit import UpdateView
 
 class BlogUpdateView(BlogFormMixin, PermissionRequiredMixin, UpdateView):
     permission_required = [ 'test_app.change_blog' ]
-    template_name_suffix = '_update_form'
 
     def get_success_url(self):
         return reverse('test_app:blog-detail', kwargs={'pk':self.object.pk})

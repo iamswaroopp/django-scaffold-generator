@@ -5,6 +5,5 @@ app_name = '{{ app_label }}'
 
 urlpatterns =  []
 
-
-
+urlpatterns += [ path('api/', include('{{ app_label }}.api.urls'), name='{{ app_label }}-api') ]
 

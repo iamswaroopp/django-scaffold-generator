@@ -1,0 +1,10 @@
+{% load scaffold_generator_helper %}
+{% with class=config.REST_FRAMEWORK_DEFAULT_ROUTER %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endwith %}
+
+urlpatterns =  []
+
+router = {{ config.REST_FRAMEWORK_DEFAULT_ROUTER|to_classname }}()
+
+urlpatterns += router.urls

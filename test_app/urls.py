@@ -5,8 +5,7 @@ app_name = 'test_app'
 
 urlpatterns =  []
 
-
-
+urlpatterns += [ path('api/', include('test_app.api.urls'), name='test_app-api') ]
 
 
 

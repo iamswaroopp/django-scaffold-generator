@@ -1,0 +1,13 @@
+{% load scaffold_generator_helper %}
+{% for class in config.REST_FRAMEWORK_SERIALIZER_EXTRA_IMPORT_CLASSES %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endfor %}
+{% for class in config.REST_FRAMEWORK_SERIALIZER_PARENT_CLASSES %}
+{% include 'scaffolding/components/render_import.template' %}
+{% endfor %}
+from ..models import {{ model_name }}
+class {{ model_name }}Serializer({{ config.REST_FRAMEWORK_SERIALIZER_PARENT_CLASSES|to_classnames|join:", " }}):
+    class Meta:
+        model = {{ model_name }}
+        fields = [{% for model_field in model_fields %}'{{ model_field.name }}' {% if not forloop.last %},{% endif %} {% endfor %}]
+

@@ -63,14 +63,38 @@ class ScaffoldGenerator:
             with ft.open(
                 path=os.path.join(app_path, 'urls.py'),
                 mode='a',
-                default_file_content=render_to_string('scaffolding/urls.default.template', context=context)
+                default_file_content=render_to_string('scaffolding/urls.py.default.template', context=context)
             ) as fp:
-                fp.write(render_to_string('scaffolding/urls.template', context=context))
+                fp.write(render_to_string('scaffolding/urls.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'models.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/models.template', context=context))
+                fp.write(render_to_string('scaffolding/models.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'forms.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/forms.template', context=context))
+                fp.write(render_to_string('scaffolding/forms.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'views.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/views.template', context=context))
+                fp.write(render_to_string('scaffolding/views.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'admin.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/admin.template', context=context))
+                fp.write(render_to_string('scaffolding/admin.py.template', context=context))
+            import pprint
+            pprint.pprint(context)
+            if self.config['SCAFFOLD_REST_FRAMEWORK']:
+                api_path = os.path.join(app_path, 'api')
+                if not os.path.exists(api_path):
+                    os.mkdir(api_path)
+                    with ft.open(os.path.join(app_path,'__init__.py'), mode='w') as fp:
+                        fp.write('')
+                with ft.open(
+                        path=os.path.join(api_path, 'urls.py'),
+                        mode='r+',
+                        default_file_content=render_to_string('scaffolding/api/urls.py.default.template', context=context)
+                ) as fp:
+                    buf = []
+                    for line in fp.readlines():
+                        if 'router.urls' in line:
+                            buf.append(render_to_string('scaffolding/api/urls.py.template', context=context))
+                        buf.append(line)
+                    fp.seek(0)
+                    fp.writelines(buf)
+                with ft.open(path=os.path.join(api_path, 'serializers.py'), mode='a') as fp:
+                    fp.write(render_to_string('scaffolding/api/serializers.py.template', context=context))
+                with ft.open(path=os.path.join(api_path, 'views.py'), mode='a') as fp:
+                    fp.write(render_to_string('scaffolding/api/views.py.template', context=context))
