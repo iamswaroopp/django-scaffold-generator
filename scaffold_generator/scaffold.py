@@ -116,13 +116,10 @@ class ScaffoldGenerator:
                 with ft.open(path=os.path.join(api_path, 'views.py'), mode='a') as fp:
                     fp.write(render_to_string('scaffold_generator/api/views.py.template', context=context))
             if self.config['SCAFFOLD_TEMPLATES']:
-                print(app_path)
                 template_path = os.path.join(app_path, 'templates')
-                print(template_path)
                 if not os.path.exists(template_path):
                     os.mkdir(template_path)
                 template_app_path = os.path.join(template_path, os.path.basename(app_path))
-                print(template_app_path)
                 if not os.path.exists(template_app_path):
                     os.mkdir(template_app_path)
                 with ft.open(
