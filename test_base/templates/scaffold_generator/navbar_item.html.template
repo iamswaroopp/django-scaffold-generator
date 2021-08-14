@@ -1,0 +1,9 @@
+{% if config.VIEW_PERMISSION_CODES %}[% if{% for permission_code in config.VIEW_PERMISSION_CODES %} {% if not forloop.first %}and {% endif %}perms.{{ app_label }}.{{ permission_code }}_{{ model_code }}{% endfor %} %] {% endif %}
+{% verbatim %}
+    <li class="nav-item">
+       <a class="nav-link" href="[% url '{% endverbatim %}{{ app_label }}:{{ model_code }}-list{% verbatim %}' %]">
+       {% endverbatim %}{{ model_name }}{% verbatim %}
+        </a>
+    </li>
+{% endverbatim %}
+{% if config.VIEW_PERMISSION_CODES %}[% endif %]{% endif %}

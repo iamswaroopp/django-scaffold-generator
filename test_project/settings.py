@@ -36,6 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'scaffold_generator',
+    'rest_framework',
+    'crispy_forms',
+    'test_base',
     'test_app',
 ]
 
@@ -50,6 +53,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'test_project.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_URL = '/admin/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL ='/admin/login'
+
 
 TEMPLATES = [
     {
@@ -114,3 +124,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SCAFFOLD_GENERATOR_SETTINGS = {
+    'FORM_EXTRA': 'scaffold_generator/form_extra.py.template',
+    'SCAFFOLD_TEMPLATES': True,
+    'FORM_EXTRA_IMPORT_CLASSES': [
+        'django.forms',
+        'crispy_forms.layout',
+        'crispy_forms.bootstrap.FormActions',
+        'test_base.helpers.FormHelper',
+    ],
+    'ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE': 'test_base/navbar_items.html',
+}

@@ -22,9 +22,10 @@ def to_import(class_name):
 def to_classname(classname):
     return classname.split('.')[-1]
 
+
 @register.filter
 def to_classnames(classnames):
-    return [ to_classname(cl) for cl in classnames]
+    return [to_classname(cl) for cl in classnames]
 
 
 @register.filter

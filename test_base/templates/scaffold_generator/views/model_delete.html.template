@@ -1,0 +1,3 @@
+{% verbatim %}
+{% extends 'test_base/base_delete.html' %}
+{% endverbatim %}

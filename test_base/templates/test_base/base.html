@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html class="no-js css-menubar" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="App Name">
+    <meta name="author" content="Swaroop P<iamswaroopp@gmail.com>">
+    <meta name="robots" content="index, follow"/>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui, shrink-to-fit=no">
+
+    {% include 'test_base/includes/header_includes.html' %}
+    {% block page_header_includes %}{% endblock %}
+    <title>App Name</title>
+</head>
+
+<body class="{% block html_body_classes %}{% endblock %}">
+<noscript>
+
+    <style>
+        #pageBody {
+            display: none;
+        }
+    </style>
+    <h1 style="text-align: center; font-weight: bolder">Please enable Javascript to view this content.</h1>
+</noscript>
+<div id="pageBody" class="{% block body_classes %} h-100 {% endblock %}">
+    <!--[if lt IE 8]>
+    <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser.
+        Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+    </p>
+    <![endif]-->
+    {% block body_content %}{% endblock %}
+</div>
+
+{% include 'test_base/includes/body_includes.html' %}
+{% block page_body_includes %}{% endblock %}
+</body>
+
+</html>

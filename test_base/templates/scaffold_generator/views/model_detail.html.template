@@ -1,0 +1,47 @@
+{% verbatim %}
+{% extends 'test_base/base_list.html' %}
+
+{% block page_title %}
+{% endverbatim %}
+{{ model_name }} Details
+{% verbatim %}
+{% endblock %}
+
+{% block page_actions %}
+{% endverbatim %}
+{% if config.CHANGE_PERMISSION_CODES %}[% if{% for permission_code in config.CHANGE_PERMISSION_CODES %} {% if not forloop.first %}and {% endif %}perms.{{ app_label }}.{{ permission_code }}_{{ model_code }}{% endfor %} %] {% endif %}
+    {% verbatim %}
+    <a class="btn btn-primary" href="[% url '{% endverbatim %}{{ app_label }}:{{ model_code }}-update{% verbatim %}' pk=object.pk %]">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    {% endverbatim %}
+{% if config.CHANGE_PERMISSION_CODES %}[% endif %]{% endif %}
+{% if config.DELETE_PERMISSION_CODES %}[% if{% for permission_code in config.DELETE_PERMISSION_CODES %} {% if not forloop.first %}and {% endif %}perms.{{ app_label }}.{{ permission_code }}_{{ model_code }}{% endfor %} %] {% endif %}
+     {% verbatim %}
+     <a class="btn btn-danger" data-toggle="modal" data-target="#commonModal"
+         data-target-title="Delete {% endverbatim %} {{ model_name}} {% verbatim %} : {{ object }}"
+         data-target-url="[% url '{% endverbatim %}{{ app_label }}:{{ model_code }}-delete{% verbatim %}' pk=object.pk %]">
+         <i class="fas fa-trash-alt"></i> Delete
+    </a>
+{% endverbatim %}
+{% if config.DELETE_PERMISSION_CODES %}[% endif %]{% endif %}
+{% verbatim %}
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div>ID</div>
+            <div><h5>{{ object.id }}</h5></div>
+        </div>
+        {% endverbatim %}
+        {% for model_field in model_fields %}
+        <div class="col-md-4 mb-3">
+            <div>{{ model_field.name|title }}</div>
+            <div><h5>[[ object.{{ model_field.name }} ]]</h5></div>
+        </div>
+        {% endfor %}
+        {% verbatim %}
+    </div>
+{% endblock %}
+{% endverbatim %}

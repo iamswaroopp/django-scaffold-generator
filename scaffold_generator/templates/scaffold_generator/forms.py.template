@@ -1,12 +1,14 @@
 {% load scaffold_generator_helper %}
 {% for class in config.FORM_EXTRA_IMPORT_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 {% for class in config.FORM_PARENT_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 from .models import {{ model_name }}
 class {{ model_name }}Form({{ config.FORM_PARENT_CLASSES|to_classnames|join:", " }}):
+{% if config.FORM_EXTRA %}{% include config.FORM_EXTRA %}
+{% endif %}
     class Meta:
         model = {{ model_name }}
         fields = [{% for model_field in model_fields %}'{{ model_field.name }}' {% if not forloop.last %},{% endif %} {% endfor %}]

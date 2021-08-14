@@ -1,6 +1,6 @@
 
 {% for class in config.URL_EXTRA_IMPORT_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 
 from .views import {{ model_name }}ListView, {{ model_name }}DetailView, {{ model_name }}CreateView, {{ model_name }}UpdateView, {{ model_name }}DeleteView

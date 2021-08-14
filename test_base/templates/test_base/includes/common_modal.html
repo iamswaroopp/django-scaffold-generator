@@ -1,0 +1,25 @@
+<div class="modal fade" id="commonModal" tabindex="-1" role="dialog" aria-labelledby="commonModal"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">{{ request.tenant.name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body modal-body-content pt-3 pb-5 d-none">
+            </div>
+            <div class="modal-body modal-body-loading py-5">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border text-primary m-5" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,16 +1,16 @@
 {% load scaffold_generator_helper %}
 {% for class in config.REST_FRAMEWORK_VIEWSET_EXTRA_IMPORT_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 {% for class in config.REST_FRAMEWORK_VIEWSET_PARENT_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 {% for class in config.REST_FRAMEWORK_VIEWSET_PERMISSION_CLASSES %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 
 from ..models import {{ model_name }}
-from .serializer import {{ model_name }}Serializer
+from .serializers import {{ model_name }}Serializer
 
 class {{ model_name }}Viewset({{ config.REST_FRAMEWORK_VIEWSET_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.REST_FRAMEWORK_VIEWSET_PERMISSION_CLASSES %}permission_classes = [{% for permission_class in config.REST_FRAMEWORK_VIEWSET_PERMISSION_CLASSES|to_classnames %} {{ permission_class }}{% if not forloop.last %}|{% endif %} {% endfor %}]{% endif %}

@@ -1,6 +1,6 @@
 {% load scaffold_generator_helper %}
 {% with class=config.REST_FRAMEWORK_DEFAULT_ROUTER %}
-{% include 'scaffolding/components/render_import.template' %}
+{% include 'scaffold_generator/components/render_import.template' %}
 {% endwith %}
 
 urlpatterns =  []

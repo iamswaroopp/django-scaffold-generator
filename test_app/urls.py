@@ -20,3 +20,15 @@ urlpatterns += [
     path('blog/<int:pk>/update/', BlogUpdateView.as_view(), name='blog-update'),
     path('blog/<int:pk>/delete/', BlogDeleteView.as_view(), name='blog-delete'),
 ]
+
+from django.urls import path
+
+
+from .views import CommentListView, CommentDetailView, CommentCreateView, CommentUpdateView, CommentDeleteView
+urlpatterns += [
+    path('comment/', CommentListView.as_view(), name='comment-list'),
+    path('comment/<int:pk>/', CommentDetailView.as_view(), name='comment-detail'),
+    path('comment/create/', CommentCreateView.as_view(), name='comment-create'),
+    path('comment/<int:pk>/update/', CommentUpdateView.as_view(), name='comment-update'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='comment-delete'),
+]

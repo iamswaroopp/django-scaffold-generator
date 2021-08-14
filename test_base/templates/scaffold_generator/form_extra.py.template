@@ -1,0 +1,17 @@
+    helper = FormHelper(
+        layout=layout.Layout(
+            layout.Fieldset(
+                '{{ model_name }} Details',
+                layout.Row(
+                {% for model_field in model_fields %} layout.Column('{{ model_field.name }}', css_class='col-lg-4'),
+                {% endfor %}
+                ),
+                layout.Row(
+                    layout.Column(
+                        FormActions(layout.Submit('submit', 'Save', css_class='btn btn-block')),
+                        css_class='offset-lg-10 col-lg-2'
+                    ),
+                ),
+            )
+        )
+    )

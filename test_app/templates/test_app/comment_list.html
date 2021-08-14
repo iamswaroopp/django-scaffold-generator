@@ -1,0 +1,72 @@
+
+{% extends 'test_base/base_list.html' %}
+
+{% block page_title %}
+
+Comment Details
+
+{% endblock %}
+
+{% block page_actions %}
+
+{% if perms.test_app.add_comment and perms.test_app.create_comment %} 
+
+    <a class="btn btn-primary" href="{% url 'test_app:comment-create' %}">
+        <i class="fas fa-plus"></i> Add Comment
+    </a>
+
+{% endif %}
+
+{% endblock %}
+
+{% block page_content %}
+
+    <table class="table table-striped table-hover datatable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Blog</th>
+            <th>Date</th>
+            <th>Description</th>
+            
+            <th data-orderable="false">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for object in object_list %}
+            <tr>
+                <td><a href="{% url 'test_app:comment-detail' pk=object.pk %}">{{ object.pk }}</a></td>
+                <td>{{ object.user }}</td>
+                <td>{{ object.blog }}</td>
+                <td>{{ object.date }}</td>
+                <td>{{ object.description }}</td>
+                
+                <td>
+                    
+                    {% if perms.test_app.change_comment %} 
+                    
+                        <a class="btn btn-primary btn-sm" href="{% url 'test_app:comment-update' pk=object.pk %}">
+                            <i class="fas fa-edit"></i> Edit
+                        </a>
+                    
+                    {% endif %}
+                    {% if perms.test_app.delete_comment %} 
+                    
+                        <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#commonModal"
+                           data-target-title="Delete  Comment  : {{ object }}"
+                           data-target-url="{% url 'test_app:comment-delete' pk=object.pk %}">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                    
+                    {% endif %}
+                    
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

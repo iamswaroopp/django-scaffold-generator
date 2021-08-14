@@ -1,0 +1,6 @@
+<form action="{{ request.path }}" method="post">
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-danger" value="Delete">
+</form>

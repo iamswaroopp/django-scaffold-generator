@@ -1,4 +1,3 @@
-
 DEFAULT_SETTINGS = {
     'CREATE_HTML_VIEW_RESOURCES': True,
     'CREATE_REST_VIEW_RESOURCES': True,
@@ -13,7 +12,6 @@ DEFAULT_SETTINGS = {
     'MODEL_PARENT_CLASSES': ['django.db.models.Model'],
     'FORM_EXTRA_IMPORT_CLASSES': ['django.forms'],
     'FORM_PARENT_CLASSES': ['django.forms.ModelForm'],
-
     'VIEW_EXTRA_IMPORT_CLASSES': [],
     'VIEW_PERMISSION_CLASSES': [
         'django.contrib.auth.mixins.PermissionRequiredMixin',
@@ -26,9 +24,7 @@ DEFAULT_SETTINGS = {
     'ADD_PERMISSION_CLASSES': [
         'django.contrib.auth.mixins.PermissionRequiredMixin',
     ],
-    'ADD_PERMISSION_CODES': [
-        'add',
-    ],
+    'ADD_PERMISSION_CODES': ['add', 'create'],
     'CREATE_VIEW_PARENT_CLASSES': ['django.views.generic.edit.CreateView'],
     'CREATE_URL_PATH': 'create',
     'CHANGE_PERMISSION_CLASSES': [
@@ -50,13 +46,21 @@ DEFAULT_SETTINGS = {
     'ADMIN_EXTRA_IMPORT_CLASSES': ['django.contrib.admin'],
     'ADMIN_PARENT_CLASSES': ['django.contrib.admin.ModelAdmin'],
     'URL_EXTRA_IMPORT_CLASSES': ['django.urls.path'],
-    'SCAFFOLD_REST_FRAMEWORK' : True,
+    'SCAFFOLD_REST_FRAMEWORK': True,
     'REST_FRAMEWORK_SERIALIZER_EXTRA_IMPORT_CLASSES': ['rest_framework.serializers'],
     'REST_FRAMEWORK_SERIALIZER_PARENT_CLASSES': ['rest_framework.serializers.ModelSerializer'],
     'REST_FRAMEWORK_VIEWSET_EXTRA_IMPORT_CLASSES': ['rest_framework.viewsets'],
     'REST_FRAMEWORK_VIEWSET_PARENT_CLASSES': ['rest_framework.viewsets.ModelViewSet'],
     'REST_FRAMEWORK_VIEWSET_PERMISSION_CLASSES': ['rest_framework.permissions.DjangoModelPermissions'],
     'REST_FRAMEWORK_DEFAULT_ROUTER': 'rest_framework.routers.DefaultRouter',
+    'SCAFFOLD_TEMPLATES': False,
+    'FORM_EXTRA': '',
+    'TEMPLATE_VIEW_LIST': 'scaffold_generator/views/model_list.html.template',
+    'TEMPLATE_VIEW_DETAIL': 'scaffold_generator/views/model_detail.html.template',
+    'TEMPLATE_VIEW_FORM': 'scaffold_generator/views/model_form.html.template',
+    'TEMPLATE_VIEW_DELETE': 'scaffold_generator/views/model_delete.html.template',
+    'ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE': '',
+    'NAVBAR_ITEM_TEMPLATE': 'scaffold_generator/navbar_item.html.template',
 }
 
 DEFAULT_FIELDS = {

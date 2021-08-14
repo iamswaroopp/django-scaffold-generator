@@ -1,0 +1,37 @@
+{% extends 'test_base/base.html' %}
+{% load static %}
+
+{% block body_content %}
+    {% block page_navbar %}
+        {% include 'test_base/includes/navbar.html' %}
+    {% endblock %}
+    {% block app_content %}
+
+                <main class="{% block main_width_class %} container{% endblock %}
+                    {% block main_classes %}{% endblock %}"
+                        {% block main_attrs %}{% endblock %} style="margin-top: 75px">
+
+                    {% block page_container_head %}
+                    {% endblock %}
+
+                    {% block app_page_content %}
+                        <div class="card  mb-3">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <div class="h4 font-weight-bold">{% block page_title %}{% endblock %}</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="float-right">
+                                            {% block page_actions %}{% endblock %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% block page_content %}{% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                </main>
+
+    {% endblock %}
+{% endblock %}

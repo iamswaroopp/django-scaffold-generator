@@ -1,0 +1,23 @@
+{% extends 'test_base/app_page_base.html' %}
+{% block page_content %}
+
+    <div class="row mt-3">
+        <div class="col-12">
+            <table class="table table-hover datatable rounded">
+                <thead>
+                <tr>
+                    {% block table_header %}{% endblock %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for object in object_list %}
+                    <tr>
+                        {% block table_row %}{% endblock %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+{% endblock %}

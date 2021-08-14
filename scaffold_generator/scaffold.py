@@ -3,6 +3,7 @@ import os
 import re
 
 from django.apps import apps
+from django.template import loader
 from django.template.loader import render_to_string
 
 from .settings import ScaffoldGeneratorConfig
@@ -37,6 +38,20 @@ def clean_model_fields(model_fields, scaffold_generator_settings):
     return fields
 
 
+TEMPLATE_REPLACES = {
+    '[[': '{{',
+    ']]': '}}',
+    '[%': '{%',
+    '%]': '%}',
+}
+
+
+def clean_template(template_string):
+    for k, v in TEMPLATE_REPLACES.items():
+        template_string = template_string.replace(k, v)
+    return template_string
+
+
 class ScaffoldGenerator:
 
     def __init__(self, app_label, model_name, model_fields):
@@ -63,38 +78,74 @@ class ScaffoldGenerator:
             with ft.open(
                 path=os.path.join(app_path, 'urls.py'),
                 mode='a',
-                default_file_content=render_to_string('scaffolding/urls.py.default.template', context=context)
+                default_file_content=render_to_string('scaffold_generator/urls.py.default.template', context=context)
             ) as fp:
-                fp.write(render_to_string('scaffolding/urls.py.template', context=context))
+                fp.write(render_to_string('scaffold_generator/urls.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'models.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/models.py.template', context=context))
+                fp.write(render_to_string('scaffold_generator/models.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'forms.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/forms.py.template', context=context))
+                fp.write(render_to_string('scaffold_generator/forms.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'views.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/views.py.template', context=context))
+                fp.write(render_to_string('scaffold_generator/views.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'admin.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffolding/admin.py.template', context=context))
+                fp.write(render_to_string('scaffold_generator/admin.py.template', context=context))
             import pprint
             pprint.pprint(context)
             if self.config['SCAFFOLD_REST_FRAMEWORK']:
                 api_path = os.path.join(app_path, 'api')
                 if not os.path.exists(api_path):
                     os.mkdir(api_path)
-                    with ft.open(os.path.join(app_path,'__init__.py'), mode='w') as fp:
+                    with ft.open(os.path.join(app_path, '__init__.py'), mode='w') as fp:
                         fp.write('')
                 with ft.open(
-                        path=os.path.join(api_path, 'urls.py'),
-                        mode='r+',
-                        default_file_content=render_to_string('scaffolding/api/urls.py.default.template', context=context)
+                    path=os.path.join(api_path, 'urls.py'),
+                    mode='r+',
+                    default_file_content=render_to_string(
+                        'scaffold_generator/api/urls.py.default.template', context=context
+                    )
                 ) as fp:
                     buf = []
                     for line in fp.readlines():
                         if 'router.urls' in line:
-                            buf.append(render_to_string('scaffolding/api/urls.py.template', context=context))
+                            buf.append(render_to_string('scaffold_generator/api/urls.py.template', context=context))
                         buf.append(line)
                     fp.seek(0)
                     fp.writelines(buf)
                 with ft.open(path=os.path.join(api_path, 'serializers.py'), mode='a') as fp:
-                    fp.write(render_to_string('scaffolding/api/serializers.py.template', context=context))
+                    fp.write(render_to_string('scaffold_generator/api/serializers.py.template', context=context))
                 with ft.open(path=os.path.join(api_path, 'views.py'), mode='a') as fp:
-                    fp.write(render_to_string('scaffolding/api/views.py.template', context=context))
+                    fp.write(render_to_string('scaffold_generator/api/views.py.template', context=context))
+            if self.config['SCAFFOLD_TEMPLATES']:
+                print(app_path)
+                template_path = os.path.join(app_path, 'templates')
+                print(template_path)
+                if not os.path.exists(template_path):
+                    os.mkdir(template_path)
+                template_app_path = os.path.join(template_path, os.path.basename(app_path))
+                print(template_app_path)
+                if not os.path.exists(template_app_path):
+                    os.mkdir(template_app_path)
+                with ft.open(
+                    path=os.path.join(template_app_path, context['model_code'] + '_list.html'), mode='a'
+                ) as fp:
+                    fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_LIST'], context=context)))
+                with ft.open(
+                    path=os.path.join(template_app_path, context['model_code'] + '_detail.html'), mode='a'
+                ) as fp:
+                    fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_DETAIL'], context=context)))
+                with ft.open(
+                    path=os.path.join(template_app_path, context['model_code'] + '_form.html'), mode='a'
+                ) as fp:
+                    fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_FORM'], context=context)))
+                with ft.open(
+                    path=os.path.join(template_app_path, context['model_code'] + '_delete.html'), mode='a'
+                ) as fp:
+                    fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_DELETE'], context=context)))
+                if self.config['ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE']:
+                    navbar_template_file = loader.get_template(
+                        self.config['ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE']
+                    ).origin.name
+                    with ft.open(path=navbar_template_file, mode='a') as fp:
+                        fp.write(
+                            clean_template(render_to_string(self.config['NAVBAR_ITEM_TEMPLATE'], context=context))
+                        )

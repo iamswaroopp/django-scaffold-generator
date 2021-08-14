@@ -1,0 +1,61 @@
+
+{% extends 'test_base/base_list.html' %}
+
+{% block page_title %}
+
+Comment Details
+
+{% endblock %}
+
+{% block page_actions %}
+
+{% if perms.test_app.change_comment %} 
+    
+    <a class="btn btn-primary" href="{% url 'test_app:comment-update' pk=object.pk %}">
+        <i class="fas fa-edit"></i> Edit
+    </a>
+    
+{% endif %}
+{% if perms.test_app.delete_comment %} 
+     
+     <a class="btn btn-danger" data-toggle="modal" data-target="#commonModal"
+         data-target-title="Delete  Comment  : {{ object }}"
+         data-target-url="{% url 'test_app:comment-delete' pk=object.pk %}">
+         <i class="fas fa-trash-alt"></i> Delete
+    </a>
+
+{% endif %}
+
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div>ID</div>
+            <div><h5>{{ object.id }}</h5></div>
+        </div>
+        
+        
+        <div class="col-md-4 mb-3">
+            <div>User</div>
+            <div><h5>{{ object.user }}</h5></div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div>Blog</div>
+            <div><h5>{{ object.blog }}</h5></div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div>Date</div>
+            <div><h5>{{ object.date }}</h5></div>
+        </div>
+        
+        <div class="col-md-4 mb-3">
+            <div>Description</div>
+            <div><h5>{{ object.description }}</h5></div>
+        </div>
+        
+        
+    </div>
+{% endblock %}

@@ -1,0 +1,7 @@
+{% extends 'test_base/app_page_base.html' %}
+{% load crispy_forms_tags %}
+{% block page_content %}
+    {% block form_content %}
+        {% crispy form %}
+    {% endblock %}
+{% endblock %}

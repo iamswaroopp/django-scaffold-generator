@@ -1,0 +1,18 @@
+{% if perms.test_app.view_blog %}
+
+    <li class="nav-item">
+       <a class="nav-link" href="{% url 'test_app:blog-list' %}">
+       Blog
+        </a>
+    </li>
+
+{% endif %}
+{% if perms.test_app.view_comment %}
+
+    <li class="nav-item">
+       <a class="nav-link" href="{% url 'test_app:comment-list' %}">
+       Comment
+        </a>
+    </li>
+
+{% endif %}

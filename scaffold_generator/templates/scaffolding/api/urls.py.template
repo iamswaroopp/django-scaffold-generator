@@ -1,4 +1,0 @@
-
-from .views import {{ model_name }}Viewset
-
-router.register(r'{{ model_code }}', {{ model_name }}Viewset)

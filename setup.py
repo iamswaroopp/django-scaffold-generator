@@ -4,7 +4,7 @@ from pathlib import Path
 from setuptools import setup
 from setuptools import setup, find_packages
 
-version = '0.0.1a6'
+version = '0.0.1a7'
 
 description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'README.md')).read_text(encoding='utf-8').strip()
@@ -12,7 +12,7 @@ description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
 setup(
     name='django-scaffold-generator',
     packages=find_packages('.', include=['scaffold_generator','scaffold_generator.*']),
-    package_data={'scaffold_generator': ['templates/scaffolding/*.template','templates/scaffolding/components/*.template']},
+    package_data={'scaffold_generator': ['templates/scaffold_generator/*.template','templates/scaffold_generator/components/*.template', 'templates/scaffold_generator/api/*.template']},
 
     version=version,
     license='mit',
@@ -27,8 +27,9 @@ setup(
     keywords=(
         'django',
         'developement',
-        'scaffolding',
+        'scaffold_generator',
         'startapp',
+        'rapid','rad','rapid application development'
         'python',
     ),
     install_requires=('django',),
