@@ -135,7 +135,7 @@ class ScaffoldGenerator:
                 ) as fp:
                     fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_FORM'], context=context)))
                 with ft.open(
-                    path=os.path.join(template_app_path, context['model_code'] + '_delete.html'), mode='a'
+                    path=os.path.join(template_app_path, context['model_code'] + '_confirm_delete.html'), mode='a'
                 ) as fp:
                     fp.write(clean_template(render_to_string(self.config['TEMPLATE_VIEW_DELETE'], context=context)))
                 if self.config['ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE']:
