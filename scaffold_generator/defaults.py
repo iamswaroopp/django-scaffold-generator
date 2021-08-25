@@ -24,7 +24,9 @@ DEFAULT_SETTINGS = {
     'ADD_PERMISSION_CLASSES': [
         'django.contrib.auth.mixins.PermissionRequiredMixin',
     ],
-    'ADD_PERMISSION_CODES': ['add', 'create'],
+    'ADD_PERMISSION_CODES': [
+        'add',
+    ],
     'CREATE_VIEW_PARENT_CLASSES': ['django.views.generic.edit.CreateView'],
     'CREATE_URL_PATH': 'create',
     'CHANGE_PERMISSION_CLASSES': [
