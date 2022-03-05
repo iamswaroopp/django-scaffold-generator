@@ -93,7 +93,7 @@ class ScaffoldGenerator:
             import pprint
             pprint.pprint(context)
             if self.config['SCAFFOLD_REST_FRAMEWORK']:
-                api_path = os.path.join(app_path, settings.REST_FRAMEWORK_PATH)
+                api_path = os.path.join(app_path, self.config['REST_FRAMEWORK_PATH'])
                 if not os.path.exists(api_path):
                     os.mkdir(api_path)
                     with ft.open(os.path.join(app_path, '__init__.py'), mode='w') as fp:
