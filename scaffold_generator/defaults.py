@@ -63,6 +63,7 @@ DEFAULT_SETTINGS = {
     'TEMPLATE_VIEW_DELETE': 'scaffold_generator/views/model_delete.html.template',
     'ADD_LIST_VIEW_TO_NAVBAR_TEMPLATE': '',
     'NAVBAR_ITEM_TEMPLATE': 'scaffold_generator/navbar_item.html.template',
+    'REST_FRAMEWORK_PATH': 'api',
 }
 
 DEFAULT_FIELDS = {
