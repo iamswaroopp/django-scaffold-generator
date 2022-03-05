@@ -75,20 +75,21 @@ class ScaffoldGenerator:
         context = self.get_context()
         LOGGER.debug('Using context : %s', context)
         with FileTransaction() as ft:
-            with ft.open(
-                path=os.path.join(app_path, 'urls.py'),
-                mode='a',
-                default_file_content=render_to_string('scaffold_generator/urls.py.default.template', context=context)
-            ) as fp:
-                fp.write(render_to_string('scaffold_generator/urls.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'models.py'), mode='a') as fp:
                 fp.write(render_to_string('scaffold_generator/models.py.template', context=context))
-            with ft.open(path=os.path.join(app_path, 'forms.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffold_generator/forms.py.template', context=context))
-            with ft.open(path=os.path.join(app_path, 'views.py'), mode='a') as fp:
-                fp.write(render_to_string('scaffold_generator/views.py.template', context=context))
             with ft.open(path=os.path.join(app_path, 'admin.py'), mode='a') as fp:
                 fp.write(render_to_string('scaffold_generator/admin.py.template', context=context))
+            if self.config['SCAFFOLD_HTML_VIEWS']:
+                with ft.open(
+                    path=os.path.join(app_path, 'urls.py'),
+                    mode='a',
+                    default_file_content=render_to_string('scaffold_generator/urls.py.default.template', context=context)
+                ) as fp:
+                    fp.write(render_to_string('scaffold_generator/urls.py.template', context=context))
+                with ft.open(path=os.path.join(app_path, 'forms.py'), mode='a') as fp:
+                    fp.write(render_to_string('scaffold_generator/forms.py.template', context=context))
+                with ft.open(path=os.path.join(app_path, 'views.py'), mode='a') as fp:
+                    fp.write(render_to_string('scaffold_generator/views.py.template', context=context))
             import pprint
             pprint.pprint(context)
             if self.config['SCAFFOLD_REST_FRAMEWORK']:

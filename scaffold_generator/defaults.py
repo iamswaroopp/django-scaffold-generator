@@ -48,6 +48,7 @@ DEFAULT_SETTINGS = {
     'ADMIN_EXTRA_IMPORT_CLASSES': ['django.contrib.admin'],
     'ADMIN_PARENT_CLASSES': ['django.contrib.admin.ModelAdmin'],
     'URL_EXTRA_IMPORT_CLASSES': ['django.urls.path'],
+    'SCAFFOLD_HTML_VIEWS': True,
     'SCAFFOLD_REST_FRAMEWORK': True,
     'REST_FRAMEWORK_SERIALIZER_EXTRA_IMPORT_CLASSES': ['rest_framework.serializers'],
     'REST_FRAMEWORK_SERIALIZER_PARENT_CLASSES': ['rest_framework.serializers.ModelSerializer'],
