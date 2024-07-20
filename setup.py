@@ -4,7 +4,7 @@ from pathlib import Path
 from setuptools import setup
 from setuptools import setup, find_packages
 
-version = 'dev'
+version = '0.0.1'
 
 description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'README.md')).read_text(encoding='utf-8').strip()
