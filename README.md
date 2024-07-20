@@ -6,17 +6,15 @@ This projects aim to provide Ruby on Rails like scaffolding on Django framework.
 
 ```
 
-python manage.py generatescaffold <app_name> <ModelName> "<field1>:<Field1Type>" "<field2>:<Field2Type>"
+python manage.py generatescaffold <app_name> <ModelName> "<field1>:<Field1Type>" "<field2>:<Field2Type>(params)"
 
 ```
-
-
 
 ### Example:
 
 ```
 
-python manage.py generatescaffold test_app TestModel "name:CharField" "description:TextField"
+python manage.py generatescaffold test_app TestModel "name:CharField(max_length=512)" "description:TextField"
 
 ```
 

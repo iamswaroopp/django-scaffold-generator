@@ -4,3 +4,4 @@ pylint-django
 yapf
 isort
 twine
+build

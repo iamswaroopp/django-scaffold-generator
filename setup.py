@@ -4,7 +4,7 @@ from pathlib import Path
 from setuptools import setup
 from setuptools import setup, find_packages
 
-version = 'dev'
+version = '0.0.0'
 
 description = Path(os.path.join(os.path.abspath(os.path.dirname(__file__)),
                                 'README.md')).read_text(encoding='utf-8').strip()
@@ -16,7 +16,7 @@ setup(
 
     version=version,
     license='mit',
-    license_files=('LICENSE.txt',),
+    license_files=['LICENSE.txt',],
     description='Ruby on Rails like Scaffolding Provider for Django',
     long_description=description,
     long_description_content_type='text/markdown',
@@ -24,18 +24,18 @@ setup(
     author_email='iamswaroopp@gmail.com',
     url='https://github.com/iamswaroopp/django-scaffold-generator',
     download_url='https://github.com/iamswaroopp/django-scaffold-generator/archive/' + version + '.zip',
-    keywords=(
+    keywords=[
         'django',
         'developement',
         'scaffold_generator',
         'startapp',
         'rapid','rad','rapid application development'
         'python',
-    ),
-    install_requires=('django',),
-    python_requires='>=3.6',
-    classifiers=(
-        'Development Status :: 1 - Planning',
+    ],
+    install_requires=['django',],
+    python_requires='>=3.8',
+    classifiers=[
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Libraries',
         'Topic :: Software Development :: Libraries :: Application Frameworks',
@@ -47,7 +47,7 @@ setup(
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
         'Programming Language :: Python :: 3.12',
-    ),
+    ],
     project_urls={  # Optional
         'Bug Reports': 'https://github.com/iamswaroopp/django-scaffold-generator/issues',
     },
