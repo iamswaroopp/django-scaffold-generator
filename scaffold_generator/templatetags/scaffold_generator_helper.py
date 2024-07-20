@@ -20,7 +20,9 @@ def to_import(class_name):
 
 @register.filter
 def to_classname(classname):
-    return classname.split('.')[-1]
+    if classname.split('.'):
+        return classname.split('.')[-1]
+    return classname
 
 
 @register.filter
@@ -31,3 +33,9 @@ def to_classnames(classnames):
 @register.filter
 def to_permission_codes(permission_codes, **kwargs):
     return permission_codes
+
+
+
+@register.filter
+def to_single_item_list(item):
+    return [item]

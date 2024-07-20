@@ -1,17 +1,23 @@
 
 {% load scaffold_generator_helper %}
 {% autoescape off %}
+
+from django.urls import reverse
+from django.urls import reverse_lazy
 from .models import {{ model_name }}
+from .forms import {{ model_name }}Form
 
+{% with mixin_class=model_name|add:"Mixin" %}
 
-class {{ model_name }}Mixin:
+{% with mixin_class_as_list=mixin_class|to_single_item_list %}
+class {{ mixin_class }}:
     model = {{ model_name }}
 
 {% for class in config.VIEW_PERMISSION_CLASSES %}{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 {% for class in config.LIST_VIEW_PARENT_CLASSES %}{% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
-class {{ model_name }}ListView({{ model_name }}Mixin, {{ config.VIEW_PERMISSION_CLASSES|add:config.LIST_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}ListView({{ config.VIEW_PERMISSION_CLASSES|add:mixin_class_as_list|add:config.LIST_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.VIEW_PERMISSION_CODES %}permission_required = [{% for permission_code in config.VIEW_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]
     {% else %}pass
     {% endif %}
@@ -19,17 +25,13 @@ class {{ model_name }}ListView({{ model_name }}Mixin, {{ config.VIEW_PERMISSION_
 {% for class in config.DETAIL_VIEW_PARENT_CLASSES %}
 {% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
-class {{ model_name }}DetailView({{ model_name }}Mixin, {{ config.VIEW_PERMISSION_CLASSES|add:config.DETAIL_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}DetailView({{ config.VIEW_PERMISSION_CLASSES|add:mixin_class_as_list|add:config.DETAIL_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.VIEW_PERMISSION_CODES %}permission_required = [{% for permission_code in config.VIEW_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]
     {% else %}pass
     {% endif %}
-
-
-from .forms import {{ model_name }}Form
-from django.urls import reverse
-from django.urls import reverse_lazy
-
-class {{ model_name }}FormMixin({{ model_name }}Mixin):
+{% with mixin_form_class=model_name|add:"FormMixin" %}
+{% with mixin_form_class_as_list=mixin_form_class|to_single_item_list %}
+class {{ mixin_form_class }}({{ mixin_class }}):
     form_class = {{ model_name }}Form
 
 {% for class in config.ADD_PERMISSION_CLASSES %}{% include 'scaffold_generator/components/render_import.template' %}
@@ -38,7 +40,7 @@ class {{ model_name }}FormMixin({{ model_name }}Mixin):
 {% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 
-class {{ model_name }}CreateView({{ model_name }}FormMixin, {{ config.ADD_PERMISSION_CLASSES|add:config.CREATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}CreateView({{ config.ADD_PERMISSION_CLASSES|add:mixin_form_class_as_list|add:config.CREATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.ADD_PERMISSION_CODES %}permission_required = [{% for permission_code in config.ADD_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
 
     def get_success_url(self):
@@ -51,7 +53,7 @@ class {{ model_name }}CreateView({{ model_name }}FormMixin, {{ config.ADD_PERMIS
 {% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
 
-class {{ model_name }}UpdateView({{ model_name }}FormMixin, {{ config.CHANGE_PERMISSION_CLASSES|add:config.UPDATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}UpdateView( {{ config.CHANGE_PERMISSION_CLASSES|add:mixin_form_class_as_list|add:config.UPDATE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.CHANGE_PERMISSION_CLASSES %}permission_required = [{% for permission_code in config.CHANGE_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
 
     def get_success_url(self):
@@ -63,10 +65,12 @@ class {{ model_name }}UpdateView({{ model_name }}FormMixin, {{ config.CHANGE_PER
 {% for class in config.DELETE_VIEW_PARENT_CLASSES %}
 {% include 'scaffold_generator/components/render_import.template' %}
 {% endfor %}
+{% endwith %}
 
-class {{ model_name }}DeleteView({{ model_name }}FormMixin, {{ config.DELETE_PERMISSION_CLASSES|add:config.DELETE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
+class {{ model_name }}DeleteView({{ config.DELETE_PERMISSION_CLASSES|add:mixin_class_as_list|add:config.DELETE_VIEW_PARENT_CLASSES|to_classnames|join:", " }}):
     {% if config.DELETE_PERMISSION_CLASSES %}permission_required = [{% for permission_code in config.DELETE_PERMISSION_CODES %} '{{ app_label }}.{{ permission_code }}_{{ model_code }}'{% if not forloop.last %},{% endif %} {% endfor %}]{% endif %}
     success_url = reverse_lazy('{{ app_label }}:{{ model_code }}-list')
-
-
+    {% endwith %}
+{% endwith %}
+{% endwith %}
 {% endautoescape %}
